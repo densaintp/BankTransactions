@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BankTransactions.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cберкнижка</h1>
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeneficiaryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                <a asp-action="AddOrEdit" class="btn btn-sm btn-success" >
+                <i class="fa-duotone fa-plus">Добавить</i>
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeneficiaryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                    <form asp-action="Delete" asp-route-id="@item.TransactionId">
+                        <a asp-action="AddOrEdit" asp-route-id="@item.TransactionId"><i class="fa-solid fa-pen-to-square"></i></a> |
+                        <a asp-action="Details" asp-route-id="@item.TransactionId"><i class="fa-solid fa-circle-info"></i></a> |
+                        <button type="submit" 
+                            onclick="return confirm('Вы точно хотите удалить эту запись?')">
+                            <i class="fa-solid fa-trash">
+
+                            </i>
+                        </button>
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
